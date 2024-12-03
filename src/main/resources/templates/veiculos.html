@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Locadora de Veículos</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<header class="w-full py-6 bg-green-500 flex items-center justify-center">
+    <h1 class="uppercase font-bold text-white text-2xl">Locadora de Veículos</h1>
+</header>
+<main class="w-full flex justify-center mt-12">
+    <div>
+        <div class="bg-green-100/30 p-10 rounded-xl border shadow-lg">
+            <ul class="grid grid-cols-3 gap-x-20 *:uppercase *:border *:px-4 *:py-1 *:rounded-md *:bg-white *:shadow-lg *:font-semibold *:text-neutral-700">
+                <li>
+                    <a href="/veiculos">Veículos</a>
+                </li>
+                <li>
+                    <a href="/clientes">Clientes</a>
+                </li>
+                <li>
+                    <a href="/alugueis">Locações</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="bg-green-100/30 p-10 rounded-xl border shadow-lg mt-12">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-neutral-700">Veículos</h2>
+                <a href="/veiculos/criar" class="bg-green-500 text-white font-semibold rounded px-4 py-1">Novo Veículo</a>
+            </div>
+
+            <table class="w-full mt-4">
+                <thead>
+                <tr class="bg-green-500 text-white">
+                    <th class="px-4 py-2">Placa</th>
+                    <th class="px-4 py-2">Modelo</th>
+                    <th class="px-4 py-2">Marca</th>
+                    <th class="px-4 py-2">Ano</th>
+                    <th class="px-4 py-2">Cor</th>
+                    <th class="px-4 py-2">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="veiculo : ${veiculos}" class="bg-white">
+                    <td class="px-4 py-2" th:text="${veiculo.placa}">Placa</td>
+                    <td class="px-4 py-2" th:text="${veiculo.modelo}">Modelo</td>
+                    <td class="px-4 py-2" th:text="${veiculo.marca}">Marca</td>
+                    <td class="px-4 py-2" th:text="${veiculo.ano}">Ano</td>
+                    <td class="px-4 py-2" th:text="${veiculo.cor}">Cor</td>
+                    <td class="px-4 py-2">
+                        <a th:href="@{/veiculos/editar/{id}(id=${veiculo.id})}">Editar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</main>
+</body>
+</html>
