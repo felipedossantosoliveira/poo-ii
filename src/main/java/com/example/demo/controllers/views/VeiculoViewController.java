@@ -46,7 +46,7 @@ public class VeiculoViewController {
         return "editar-veiculo";
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public String atualizarVeiculo(@PathVariable Long id, Veiculo veiculo) {
         veiculo.setId(id);
         veiculoRepository.atualizar(veiculo);
