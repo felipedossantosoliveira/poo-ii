@@ -22,11 +22,12 @@ public class Usuario {
     @NotEmpty(message = "O telefone não pode ser vazio")
     @Pattern(
             regexp = "^(\\(\\d{2}\\)\\s?9?\\d{4}-\\d{4}|\\d{10,11})$",
-            message = "Número de telefone inválido! Formatos aceitos: (XX) XXXX-XXXX, (XX) 9XXXX-XXXX, ou sem separadores."
+            message = "Número de telefone inválido! Formatos aceitos: 1234567890, 12 3456-7890, (12) 34567-8901, 12345 67890, 1234-5678, ou sem separadores."
     )
     private String telefone;
 
     // Getters e Setters
+
 
     public Long getId() {
         return id;
@@ -36,28 +37,33 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNome() {
+    public @NotEmpty(message = "O nome não pode ser vazio") String getNome() {
         return nome;
     }
 
-    public void setNome() {
+    public void setNome(@NotEmpty(message = "O nome não pode ser vazio") String nome) {
         this.nome = nome;
     }
 
-    public String getEmail() {
+    public @Email(message = "E-mail inválido") String getEmail() {
         return email;
     }
 
-    public void setEmail() {
+    public void setEmail(@Email(message = "E-mail inválido") String email) {
         this.email = email;
     }
 
-    public String getTelefone() {
+    public @NotEmpty(message = "O telefone não pode ser vazio") @Pattern(
+            regexp = "^(\\(?\\d{2}\\)?\\s?)?(\\d{4,5})[-.\\s]?\\d{4}$",
+            message = "Número de telefone inválido! Formatos aceitos: 1234567890, 12 3456-7890, (12) 34567-8901, 12345 67890, 1234-5678, ou sem separadores."
+    ) String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone() {
-        System.out.println(telefone);
+    public void setTelefone(@NotEmpty(message = "O telefone não pode ser vazio") @Pattern(
+            regexp = "^(\\(?\\d{2}\\)?\\s?)?(\\d{4,5})[-.\\s]?\\d{4}$",
+            message = "Número de telefone inválido! Formatos aceitos: 1234567890, 12 3456-7890, (12) 34567-8901, 12345 67890, 1234-5678, ou sem separadores."
+    ) String telefone) {
         if (telefone != null) {
             this.telefone = telefone.replaceAll("\\D", "");
         }

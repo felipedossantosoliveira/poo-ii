@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Locadora de Veículos</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+
+<header class="w-full py-6 bg-green-500 flex items-center justify-center">
+  <h1 class="uppercase font-bold text-white text-2xl">Locadora de Veículos</h1>
+</header>
+<main class="w-full flex justify-center mt-12">
+  <div>
+    <nav class="bg-green-100/30 p-10 rounded-xl border shadow-lg">
+      <ul class="grid grid-cols-3 gap-x-20 *:uppercase *:border *:px-4 *:py-1 *:rounded-md *:bg-white *:shadow-lg *:font-semibold *:text-neutral-700">
+        <li>
+          <a href="/veiculos">Veículos</a>
+        </li>
+        <li>
+          <a href="/usuarios">Usuários</a>
+        </li>
+        <li>
+          <a href="/alugueis">Locações</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="bg-green-100/30 p-10 rounded-xl border shadow-lg mt-12">
+      <h2 class="text-2xl font-bold text-neutral-700">Editar Aluguel</h2>
+      <form action="#" th:action="@{/alugueis/{id}(id=${aluguelDTO.id})}" th:object="${aluguelDTO}" method="post" class="mt-4">
+        <div class="flex flex-col">
+          <label for="dataInicio" class="text-neutral-700 font-semibold">Data de Retirada</label>
+          <input type="date" id="dataInicio" name="dataInicio" th:field="*{dataInicio}" class="border rounded-md px-4 py-2 mt-2">
+          <div class="text-xs text-red-500" th:if="${#fields.hasErrors('dataInicio')}" th:errors="*{dataInicio}"></div>
+        </div>
+
+        <!-- Data de Devolução -->
+        <div class="flex flex-col mt-4">
+          <label for="dataFim" class="text-neutral-700 font-semibold">Data de Devolução</label>
+          <input type="date" id="dataFim" name="dataFim" th:field="*{dataFim}" class="border rounded-md px-4 py-2 mt-2">
+          <div class="text-xs text-red-500" th:if="${#fields.hasErrors('dataFim')}" th:errors="*{dataFim}"></div>
+        </div>
+        <div>
+          <label for="veiculo" class="text-neutral-700 font-semibold">Veículo</label>
+          <select id="veiculo" name="veiculo" th:field="*{veiculoId}" class="border rounded-md px-4 py-2 mt-2">
+            <option value="">Selecione um veículo</option>
+            <option th:each="veiculo : ${veiculos}" th:value="${veiculo.id}" th:text="${veiculo.placa}"></option>
+          </select>
+          <div class="text-xs text-red-500" th:if="${#fields.hasErrors('veiculoId')}" th:errors="*{veiculoId}"></div>
+        </div>
+        <div>
+          <label for="usuario" class="text-neutral-700 font-semibold">Usuário</label>
+          <select id="usuario" name="usuario" th:field="*{usuarioId}" class="border rounded-md px-4 py-2 mt-2">
+            <option value="">Selecione um usuário</option>
+            <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nome}"></option>
+          </select>
+          <div class="text-xs text-red-500" th:if="${#fields.hasErrors('usuarioId')}" th:errors="*{usuarioId}"></div>
+        </div>
+
+        <!-- Status -->
+        <div>
+          <label for="status" class="text-neutral-700 font-semibold">Status</label>
+          <select id="status" name="status" th:field="*{status}" class="border rounded-md px-4 py-2 mt-2">
+            <option value="">Selecione um status</option>
+            <option value="PENDENTE">Pendente</option>
+            <option value="FINALIZADO">Finalizado</option>
+          </select>
+          <div class="text-xs text-red-500" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></div>
+        </div>
+        <div class="flex flex-col mt-4">
+          <label for="quilometragemInicial" class="text-neutral-700 font-semibold">Quilometragem Inicial</label>
+          <input type="number" id="quilometragemInicial" name="quilometragemInicial" th:field="*{quilometragemInicial}" class="border rounded-md px-4 py-2 mt-2">
+          <div class="text-xs text-red-500" th:if="${#fields.hasErrors('quilometragemInicial')}" th:errors="*{quilometragemInicial}"></div>
+        </div>
+        <div class="flex flex-col mt-4">
+          <label for="quilometragemFinal" class="text-neutral-700 font-semibold">Quilometragem Final</label>
+          <input type="number" id="quilometragemFinal" name="quilometragemFinal" th:field="*{quilometragemFinal}" class="border rounded-md px-4 py-2 mt-2">
+          <div class="text-xs text-red-500" th:if="${#fields.hasErrors('quilometragemFinal')}" th:errors="*{quilometragemFinal}"></div>
+        </div>
+
+        <button type="submit" class="bg-green-500 text-white font-semibold rounded-md px-4 py-2 mt-4">Cadastrar</button>
+      </form>
+    </div>
+
+  </div>
+
+
+</main>
+</body>
+</html>
