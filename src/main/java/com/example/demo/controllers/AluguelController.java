@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/alugueis")
+@RequestMapping("api/alugueis")
 public class AluguelController {
 
     private final AluguelRepository aluguelRepository = new AluguelRepository();

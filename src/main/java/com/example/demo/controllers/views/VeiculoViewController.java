@@ -3,8 +3,10 @@ package com.example.demo.controllers.views;
 
 import com.example.demo.Veiculo;
 import com.example.demo.repositories.VeiculoRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,8 +32,10 @@ public class VeiculoViewController {
     }
 
     @PostMapping
-    public String criarVeiculo(Veiculo veiculo) {
-        System.out.println(veiculo);
+    public String criarVeiculo(@Valid Veiculo veiculo, BindingResult result) {
+        if (result.hasErrors()) {
+            return "criar-veiculo";
+        }
         veiculoRepository.salvar(veiculo);
         return "redirect:/veiculos";
     }
@@ -47,9 +51,18 @@ public class VeiculoViewController {
     }
 
     @PostMapping("/{id}")
-    public String atualizarVeiculo(@PathVariable Long id, Veiculo veiculo) {
+    public String atualizarVeiculo(@PathVariable Long id, @Valid Veiculo veiculo, BindingResult result) {
+        if (result.hasErrors()) {
+            return "editar-veiculo";
+        }
         veiculo.setId(id);
         veiculoRepository.atualizar(veiculo);
+        return "redirect:/veiculos";
+    }
+
+    @DeleteMapping("deletar/{id}")
+    public String deletarVeiculo(@PathVariable Long id) {
+        veiculoRepository.deletar(id);
         return "redirect:/veiculos";
     }
 }
